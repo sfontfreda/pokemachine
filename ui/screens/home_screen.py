@@ -15,7 +15,7 @@ class HomeScreen:
     for event in events:
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_RETURN:
-          launch(self.roms[self.selected_index])
+          return ("detail", self.roms[self.selected_index])
         if event.key == pygame.K_ESCAPE:
           pygame.quit()
           sys.exit()
