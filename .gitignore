@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 roms/
 settings.json
+assets/covers/*
+!assets/covers/placeholder.png
