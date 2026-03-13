@@ -5,8 +5,10 @@ from core.save_manager import save, load
 from pathlib import Path
 
 class GameDetailScreen:
-  def __init__(self, rom):
+  def __init__(self, rom, rom_index=0):
     self.rom = rom
+    self.rom_index = rom_index
+    self.font_title = pygame.font.Font(None, 48)
     self.font = pygame.font.Font(None, 32)
     self.selected = 0
     self.options = ["LAUNCH", "BACK", "SAVE", "LOAD"]
@@ -33,19 +35,24 @@ class GameDetailScreen:
                   self.selected += 1
       return None
 
-
   def draw(self, screen):
-      title = self.font.render(self.rom["name"], True, config.WHITE)
       cover_path = Path("assets/covers") / f"{self.rom['name']}.jpg"
+      cover_size = 300
+
       if cover_path.exists():
         image = pygame.image.load(str(cover_path))
+        image = pygame.transform.scale(image, (cover_size, cover_size))
+        screen.blit(image, (40, 40))
       else:
-        image = pygame.image.load(str("assets/covers/default.png"))
-      image = pygame.transform.scale(image, (200, 200))
-      screen.blit(image, (500, 500))
-      screen.blit(title, (10, 10))
+        color = config.PALETTE[self.rom_index % len(config.PALETTE)]
+        pygame.draw.rect(screen, color, (40, 40, cover_size, cover_size))
+
+      title = self.font_title.render(self.rom["name"], True, config.WHITE)
+      system = self.font.render(self.rom["system"].upper(), True, config.GRAY)
+      screen.blit(title, (380, 40))
+      screen.blit(system, (380, 100))
 
       for i, option in enumerate(self.options):
-          color = config.GREEN if i == self.selected else config.WHITE
-          text = self.font.render(option, True, color)
-          screen.blit(text, (10, 50 + i * 40))
+        color = config.GREEN if i == self.selected else config.WHITE
+        text = self.font.render(option, True, color)
+        screen.blit(text, (380, 160 + i * 50))
