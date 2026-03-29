@@ -6,7 +6,7 @@ from core import game_scanner
 
 def main():
   pygame.init()
-  screen = pygame.display.set_mode((config.WIDTH, config.HEIGHT))
+  screen = pygame.display.set_mode((config.WIDTH, config.HEIGHT), pygame.FULLSCREEN)
   pygame.display.set_caption("pokemachine")
   clock = pygame.time.Clock()
   roms = game_scanner.get_roms()

@@ -1,3 +1,9 @@
+import pygame
+pygame.init()
+info = pygame.display.Info()
+WIDTH = info.current_w
+HEIGHT = info.current_h
+
 WIDTH = 1280
 HEIGHT = 720
 FPS = 30
